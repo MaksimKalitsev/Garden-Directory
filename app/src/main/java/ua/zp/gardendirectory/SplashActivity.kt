@@ -5,11 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import ua.zp.gardendirectory.databinding.ActivitySplashBinding
 
 @SuppressLint("CustomSplashScreen")
-class SplashActivity: AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
 
@@ -19,9 +20,13 @@ class SplashActivity: AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val backgroundImage = binding.ivSplash
+        val anim = AnimationUtils.loadAnimation(this, R.anim.fade_in)
+        backgroundImage.startAnimation(anim)
+
         Handler(Looper.getMainLooper()).postDelayed({
-            val mIntent = Intent(this@SplashActivity, MainActivity::class.java)
-            startActivity(mIntent)
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             finish()
         }, 3000)
     }

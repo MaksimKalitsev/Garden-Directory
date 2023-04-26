@@ -1,13 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/menu_background"
     tools:context=".MenuFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
 
+    <TextView
+        android:id="@+id/tv_hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="150dp"
+        android:gravity="center_vertical"
+        android:text="@string/hello"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="italic||bold" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="200dp"
+        android:background="@color/menu_item">
+
+        <ImageView
+            android:id="@+id/iv_vegetables"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/vegetable"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/text_menu_item"
+            android:text="@string/vegetables"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="italic||bold" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/menu_item">
+
+        <ImageView
+            android:id="@+id/iv_fruits"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/fruit"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/text_menu_item"
+            android:text="@string/fruits"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="italic||bold" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="400dp"
+        android:background="@color/menu_item">
+
+        <ImageView
+            android:id="@+id/iv_berries"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/berries"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/text_menu_item"
+            android:text="@string/berries"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="italic||bold" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/menu_item">
+
+        <ImageView
+            android:id="@+id/iv_plantProtection"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/plant_protection"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/text_menu_item"
+            android:text="@string/plant_protection"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="italic||bold" />
+
+    </FrameLayout>
 </FrameLayout>

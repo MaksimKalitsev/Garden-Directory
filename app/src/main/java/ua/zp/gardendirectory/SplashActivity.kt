@@ -20,14 +20,14 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val backgroundImage = binding.ivSplash
+        val backgroundText = binding.tvSplash
         val anim = AnimationUtils.loadAnimation(this, R.anim.fade_in)
-        backgroundImage.startAnimation(anim)
+        backgroundText.startAnimation(anim)
 
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, 1000)
     }
 }

@@ -6,13 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ua.zp.gardendirectory.databinding.FragmentMenuBinding
 
 class MenuFragment : Fragment() {
 
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: MenuViewModel
+    private val viewModel by viewModels<MenuViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,18 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.menuBerries.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_berriesFragment)
+        }
+        binding.menuFruits.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_fruitsFragment)
+        }
+        binding.menuVegetables.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_vegetablesFragment)
+        }
+        binding.menuPlantsProtection.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_plantsProtectedFragment)
+        }
 
     }
 

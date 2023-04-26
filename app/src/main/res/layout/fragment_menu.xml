@@ -18,9 +18,10 @@
         android:text="@string/hello"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:textStyle="italic||bold" />
+        android:textStyle="italic|bold" />
 
     <FrameLayout
+        android:id="@+id/menu_vegetables"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -43,10 +44,11 @@
             android:text="@string/vegetables"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:textStyle="italic||bold" />
+            android:textStyle="bold|italic" />
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/menu_fruits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -69,11 +71,12 @@
             android:text="@string/fruits"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:textStyle="italic||bold" />
+            android:textStyle="italic|bold" />
 
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/menu_berries"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -96,11 +99,12 @@
             android:text="@string/berries"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:textStyle="italic||bold" />
+            android:textStyle="italic|bold" />
 
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/menu_plantsProtection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -123,7 +127,7 @@
             android:text="@string/plant_protection"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:textStyle="italic||bold" />
+            android:textStyle="italic|bold" />
 
     </FrameLayout>
 </FrameLayout>

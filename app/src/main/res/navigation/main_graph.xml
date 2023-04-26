@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/menuFragment">
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="ua.zp.gardendirectory.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_vegetablesFragment"
+            app:destination="@id/vegetablesFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_fruitsFragment"
+            app:destination="@id/fruitsFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_berriesFragment"
+            app:destination="@id/berriesFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_plantsProtectedFragment"
+            app:destination="@id/plantsProtectedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/berriesFragment"
+        android:name="ua.zp.gardendirectory.BerriesFragment"
+        android:label="fragment_berries"
+        tools:layout="@layout/fragment_berries" />
+    <fragment
+        android:id="@+id/fruitsFragment"
+        android:name="ua.zp.gardendirectory.FruitsFragment"
+        android:label="fragment_fruits"
+        tools:layout="@layout/fragment_fruits" />
+    <fragment
+        android:id="@+id/plantsProtectedFragment"
+        android:name="ua.zp.gardendirectory.PlantsProtectedFragment"
+        android:label="fragment_plants_protected"
+        tools:layout="@layout/fragment_plants_protected" />
+    <fragment
+        android:id="@+id/vegetablesFragment"
+        android:name="ua.zp.gardendirectory.VegetablesFragment"
+        android:label="fragment_vegetables"
+        tools:layout="@layout/fragment_vegetables" />
+</navigation>

@@ -1,4 +1,4 @@
-package ua.zp.gardendirectory
+package ua.zp.gardendirectory.ui.menu_screen
 
 import androidx.lifecycle.ViewModel
 

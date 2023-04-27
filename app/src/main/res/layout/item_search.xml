@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center|start"
+        android:src="@drawable/ic_search"/>
+
+    <EditText
+        android:id="@+id/edt_search_text"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:hint="@string/search"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:lines="1"
+        android:textColorHint="@color/text_search"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:background="@android:color/transparent"/>
+
+    <ImageView
+        android:id="@+id/iv_clear_text"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center|end"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        android:src="@drawable/ic_clear"
+        tools:visibility="visible"/>
+
+</FrameLayout>

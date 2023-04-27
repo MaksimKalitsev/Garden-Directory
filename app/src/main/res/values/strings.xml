@@ -6,4 +6,6 @@
     <string name="fruits">Фрукти</string>
     <string name="berries">Ягоди</string>
     <string name="plant_protection">Захист рослин</string>
+    <string name="description">Description</string>
+    <string name="search">Пошук</string>
 </resources>

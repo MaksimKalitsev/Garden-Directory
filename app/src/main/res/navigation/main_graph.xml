@@ -7,40 +7,16 @@
 
     <fragment
         android:id="@+id/menuFragment"
-        android:name="ua.zp.gardendirectory.MenuFragment"
+        android:name="ua.zp.gardendirectory.ui.menu_screen.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
-            android:id="@+id/action_menuFragment_to_vegetablesFragment"
-            app:destination="@id/vegetablesFragment" />
-        <action
-            android:id="@+id/action_menuFragment_to_fruitsFragment"
-            app:destination="@id/fruitsFragment" />
-        <action
-            android:id="@+id/action_menuFragment_to_berriesFragment"
-            app:destination="@id/berriesFragment" />
-        <action
-            android:id="@+id/action_menuFragment_to_plantsProtectedFragment"
-            app:destination="@id/plantsProtectedFragment" />
+            android:id="@+id/action_menuFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/berriesFragment"
-        android:name="ua.zp.gardendirectory.BerriesFragment"
-        android:label="fragment_berries"
-        tools:layout="@layout/fragment_berries" />
-    <fragment
-        android:id="@+id/fruitsFragment"
-        android:name="ua.zp.gardendirectory.FruitsFragment"
-        android:label="fragment_fruits"
-        tools:layout="@layout/fragment_fruits" />
-    <fragment
-        android:id="@+id/plantsProtectedFragment"
-        android:name="ua.zp.gardendirectory.PlantsProtectedFragment"
-        android:label="fragment_plants_protected"
-        tools:layout="@layout/fragment_plants_protected" />
-    <fragment
-        android:id="@+id/vegetablesFragment"
-        android:name="ua.zp.gardendirectory.VegetablesFragment"
-        android:label="fragment_vegetables"
-        tools:layout="@layout/fragment_vegetables" />
+        android:id="@+id/detailsFragment"
+        android:name="ua.zp.gardendirectory.ui.details_screen.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
 </navigation>

@@ -11,7 +11,16 @@
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
-            android:id="@+id/action_menuFragment_to_detailsFragment"
+            android:id="@+id/action_menuFragment_to_plantsListFragment"
+            app:destination="@id/plantsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/plantsListFragment"
+        android:name="ua.zp.gardendirectory.ui.plantsList_screen.PlantsListFragment"
+        android:label="fragment_plants_list"
+        tools:layout="@layout/fragment_plants_list" >
+        <action
+            android:id="@+id/action_plantsListFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
     <fragment

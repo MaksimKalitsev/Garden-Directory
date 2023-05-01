@@ -3,44 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/menu_item"
-    android:padding="8dp"
+    android:layout_height="wrap_content"
     tools:context=".ui.details_screen.DetailsFragment">
 
+    <ImageView
+        android:id="@+id/iv_details_photo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/berries" />
+
     <TextView
-        android:id="@+id/title_vegetables"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center|top"
-        android:text="@string/vegetables"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ua.zp.gardendirectory.ui.view_custom.SearchView
-        android:id="@+id/search_view"
+        android:id="@+id/tv_details_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/iv_details_photo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_vegetables"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingBottom="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_recyclerview" />
-
+        tools:text="TextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

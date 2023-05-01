@@ -8,4 +8,5 @@
     <string name="plant_protection">Захист рослин</string>
     <string name="description">Description</string>
     <string name="search">Пошук</string>
+    <string name="namePlant">Name</string>
 </resources>

@@ -5,14 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import ua.zp.gardendirectory.R
+import ua.zp.gardendirectory.data.models.PlantData
 import ua.zp.gardendirectory.databinding.FragmentMenuBinding
 import ua.zp.gardendirectory.databinding.FragmentPlantsListBinding
 import ua.zp.gardendirectory.ui.PlantAdapter
+import ua.zp.gardendirectory.ui.details_screen.PlantsListState
 
+enum class RequestState{
+    LOADING, SUCCESS, ERROR;
+}
 class PlantsListFragment : Fragment() {
     private var _binding: FragmentPlantsListBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +39,7 @@ class PlantsListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPlantsListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,10 +51,35 @@ class PlantsListFragment : Fragment() {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
 
+        viewModel.liveData.observe(viewLifecycleOwner, stateObserver)
+        viewModel.getPlants()
 
-//        binding.titleVegetables.setOnClickListener {
-//            findNavController().navigate(R.id.action_plantsListFragment_to_detailsFragment)
-//        }
+
+
+    }
+    private val stateObserver = Observer<PlantsListState>{
+        when(it.requestState){
+            RequestState.LOADING->{
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            RequestState.SUCCESS->{
+                binding.progressBar.visibility = View.GONE
+                adapter.items = it.data!!
+            }
+            RequestState.ERROR->{
+                binding.progressBar.visibility = View.GONE
+                showSnackbar()
+            }
+        }
+    }
+    private fun showSnackbar() {
+        val mySnackbar =
+            Snackbar.make(binding.plantListLayout, R.string.error_snackbar, Snackbar.LENGTH_INDEFINITE)
+        mySnackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.purple_200))
+        mySnackbar.show()
     }
 
 }
+//        binding.titleVegetables.setOnClickListener {
+//            findNavController().navigate(R.id.action_plantsListFragment_to_detailsFragment)
+//        }

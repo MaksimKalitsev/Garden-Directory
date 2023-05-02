@@ -9,4 +9,5 @@
     <string name="description">Description</string>
     <string name="search">Пошук</string>
     <string name="namePlant">Name</string>
+    <string name="error_snackbar">Something wrong</string>
 </resources>

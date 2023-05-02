@@ -6,14 +6,18 @@ import ua.zp.gardendirectory.data.network.responses.PlantListResponse
 
 interface Api {
 
+    companion object {
+        private const val TOKEN = "_8KDpyHm8fnSxrTzqP8XS8pdpj7ms_xM6rSTfITt9N0"
+    }
+
     @GET("/api/v1/plants")
     fun getPlants(
-        @Query("token") token: String,
+        @Query("token") token: String = TOKEN
         ): List<PlantListResponse>
 
     @GET("/api/v1/plants/search")
     fun searchPlant(
-        @Query("token") token: String,
-        @Query("q") search: String
-    )
+        @Query("q") search: String,
+        @Query("token") token: String = TOKEN
+    ): List<PlantListResponse>
 }

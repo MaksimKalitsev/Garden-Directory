@@ -2,6 +2,7 @@ package ua.zp.gardendirectory.data.network.responses
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import ua.zp.gardendirectory.data.models.PlantData
 
 @Parcelize
 data class PlantListResponse(
@@ -28,5 +29,12 @@ data class PlantListResponse(
                     val plant: String,
                     val genus: String
             ): Parcelable
+    fun toPlantData():PlantData =
+        PlantData(
+            id = id,
+            name = common_name,
+            description = bibliography,
+            photo = image_url
+        )
     }
 

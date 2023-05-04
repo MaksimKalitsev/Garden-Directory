@@ -1,25 +1,34 @@
 package ua.zp.gardendirectory.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
 import ua.zp.gardendirectory.data.models.PlantData
 import ua.zp.gardendirectory.data.network.Api
-import ua.zp.gardendirectory.data.network.RetrofitProvider
+import ua.zp.gardendirectory.data.network.responses.PlantListResponse
 
-interface IPlantsRepository{
-    suspend fun getPlants() : Result<List<PlantData>>
-//    suspend fun searchPlant() : Result<List<PlantData>>
+const val NETWORK_PAGE_SIZE = 20
+
+interface IPlantsRepository {
+    suspend fun getPagedPlants(): Flow<PagingData<PlantData>>
+
 }
 
-class PlantsRepository(private val api: Api): IPlantsRepository {
-    override suspend fun getPlants(): Result<List<PlantData>>  =
-      try {
-          val plants = api.getPlants().map { it.toPlantData() }
-          Result.success(plants)
-      } catch (e: Exception){
-          Result.failure(e)
-      }
+class PlantsRepository(private val api: Api) : IPlantsRepository {
+    override suspend fun getPagedPlants(): Flow<PagingData<PlantData>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                PlantsPagingSource(apiPlant = api)
+            }
+        ).flow
+    }
 
 
-//    override suspend fun searchPlant(): Result<List<PlantData>> {
-//
-//    }
+
+
 }

@@ -2,7 +2,7 @@ package ua.zp.gardendirectory.data.network
 
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ua.zp.gardendirectory.data.network.responses.PlantListResponse
+import ua.zp.gardendirectory.data.network.responses.PlantsResponse
 
 interface Api {
 
@@ -11,13 +11,14 @@ interface Api {
     }
 
     @GET("/api/v1/plants")
-    fun getPlants(
+    suspend fun getPlants(
+        @Query("page") pageIndex: Int,
         @Query("token") token: String = TOKEN
-        ): List<PlantListResponse>
+    ): PlantsResponse
 
     @GET("/api/v1/plants/search")
-    fun searchPlant(
+    suspend fun searchPlant(
         @Query("q") search: String,
         @Query("token") token: String = TOKEN
-    ): List<PlantListResponse>
+    ): PlantsResponse
 }

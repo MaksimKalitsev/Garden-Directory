@@ -2,13 +2,15 @@ package ua.zp.gardendirectory.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ua.zp.gardendirectory.data.models.PlantData
 import ua.zp.gardendirectory.databinding.ItemRecyclerviewBinding
 
-class PlantAdapter():RecyclerView.Adapter<PlantAdapter.PlantHolder>() {
+class PlantAdapter(diffCallback: DiffUtil.ItemCallback<PlantData>)
+    : PagingDataAdapter<PlantData, PlantAdapter.PlantHolder>(diffCallback) {
 
     var items: List<PlantData> = emptyList()
     set(newValue) {
@@ -33,11 +35,13 @@ class PlantAdapter():RecyclerView.Adapter<PlantAdapter.PlantHolder>() {
         return PlantHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+//    override fun getItemCount(): Int {
+//        return items.size
+//    }
 
     override fun onBindViewHolder(holder: PlantHolder, position: Int) {
-        holder.bind(items[position])
+        getItem(position)?.let {
+            holder.bind(it)
+        }
     }
 }

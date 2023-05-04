@@ -9,9 +9,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import ua.zp.gardendirectory.R
 import ua.zp.gardendirectory.data.models.PlantData
 import ua.zp.gardendirectory.databinding.FragmentMenuBinding
@@ -30,6 +35,17 @@ class PlantsListFragment : Fragment() {
 
     private lateinit var adapter: PlantAdapter
 
+    private val diffUtilItemCallback = object : DiffUtil.ItemCallback<PlantData>() {
+        override fun areItemsTheSame(oldItem: PlantData, newItem: PlantData): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: PlantData, newItem: PlantData): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (viewModel.isInitialized.not())
@@ -46,40 +62,52 @@ class PlantsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = PlantAdapter()
+        adapter = PlantAdapter(diffUtilItemCallback)
         val layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
 
-        viewModel.liveData.observe(viewLifecycleOwner, stateObserver)
-        viewModel.getPlants()
+        setupSwipeToRefresh()
 
-
-
-    }
-    private val stateObserver = Observer<PlantsListState>{
-        when(it.requestState){
-            RequestState.LOADING->{
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            RequestState.SUCCESS->{
-                binding.progressBar.visibility = View.GONE
-                adapter.items = it.data!!
-            }
-            RequestState.ERROR->{
-                binding.progressBar.visibility = View.GONE
-                showSnackbar()
+        lifecycleScope.launch {
+            viewModel.plantsFlow.collectLatest {
+                adapter.submitData(it)
             }
         }
     }
+
+    private fun setupSwipeToRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.refresh()
+        }
+    }
+
+//    private fun setupSearchInput() {
+//        binding.searchEditText.addTextChangedListener {
+//            viewModel.setSearchBy(it.toString())
+//        }
+//    }
+//
+
+//    private val stateObserver = Observer<PlantsListState>{
+//        when(it.requestState){
+//            RequestState.LOADING->{
+//                binding.progressBar.visibility = View.VISIBLE
+//            }
+//            RequestState.SUCCESS->{
+//                binding.progressBar.visibility = View.GONE
+//                adapter.submitData(lifecycle, plantsFlow)
+//            }
+//            RequestState.ERROR->{
+//                binding.progressBar.visibility = View.GONE
+//                showSnackbar()
+//            }
+//        }
+//    }
     private fun showSnackbar() {
         val mySnackbar =
             Snackbar.make(binding.plantListLayout, R.string.error_snackbar, Snackbar.LENGTH_INDEFINITE)
         mySnackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.purple_200))
         mySnackbar.show()
     }
-
 }
-//        binding.titleVegetables.setOnClickListener {
-//            findNavController().navigate(R.id.action_plantsListFragment_to_detailsFragment)
-//        }

@@ -12,13 +12,13 @@ import ua.zp.gardendirectory.databinding.ItemRecyclerviewBinding
 class PlantAdapter(diffCallback: DiffUtil.ItemCallback<PlantData>)
     : PagingDataAdapter<PlantData, PlantAdapter.PlantHolder>(diffCallback) {
 
-    var items: List<PlantData> = emptyList()
-    set(newValue) {
-        val diffCallback = DiffCallback(field, newValue)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        field = newValue
-        diffResult.dispatchUpdatesTo(this)
-    }
+//    var items: List<PlantData> = emptyList()
+//    set(newValue) {
+//        val diffCallback = DiffCallback(field, newValue)
+//        val diffResult = DiffUtil.calculateDiff(diffCallback)
+//        field = newValue
+//        diffResult.dispatchUpdatesTo(this)
+//    }
 
     class PlantHolder(private val binding:ItemRecyclerviewBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(data:PlantData) = with(binding){

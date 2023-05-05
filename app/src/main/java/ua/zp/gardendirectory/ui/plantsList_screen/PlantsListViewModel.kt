@@ -39,6 +39,7 @@ class PlantsListViewModel : ViewModel() {
                     repository.getPagedPlants()
                 }
             }
+            .catch { it.printStackTrace() }
             .cachedIn(viewModelScope)
     }
 

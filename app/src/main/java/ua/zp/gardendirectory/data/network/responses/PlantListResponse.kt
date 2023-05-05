@@ -14,20 +14,20 @@ data class PlantsResponse(
 @Parcelize
 data class PlantListResponse(
     val id: Int,
-    val common_name: String,
-    val slug: String,
-    val scientific_name: String,
+    val common_name: String?,
+    val slug: String?,
+    val scientific_name: String?,
     val year: Int,
-    val bibliography: String,
-    val author: String,
-    val status: String,
-    val rank: String,
+    val bibliography: String?,
+    val author: String?,
+    val status: String?,
+    val rank: String?,
     val family_common_name: String? = null,
     val genus_id: Int,
-    val image_url: String,
+    val image_url: String?,
     val synonyms: List<String>,
-    val genus: String,
-    val family: String,
+    val genus: String?,
+    val family: String?,
 ) : Parcelable {
     fun toPlantData(): PlantData =
         PlantData(

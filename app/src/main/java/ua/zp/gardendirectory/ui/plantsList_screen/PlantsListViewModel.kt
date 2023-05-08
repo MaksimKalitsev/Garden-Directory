@@ -17,7 +17,7 @@ import ua.zp.gardendirectory.ui.details_screen.PlantsListState
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 class PlantsListViewModel : ViewModel() {
 
-//    val liveData = MutableLiveData(PlantsListState(RequestState.LOADING))
+    //    val liveData = MutableLiveData(PlantsListState(RequestState.LOADING))
     private var repository = PlantsRepository(RetrofitProvider.api)
     val plantsFlow: Flow<PagingData<PlantData>>
     private val searchBy = MutableLiveData("")
@@ -31,15 +31,19 @@ class PlantsListViewModel : ViewModel() {
             isInitialized = true
         }
     }
+
     init {
         plantsFlow = searchBy.asFlow()
             .debounce(500)
             .flatMapLatest {
-                withContext(Dispatchers.IO) {
-                    repository.getPagedPlants()
+                if (it.isNullOrEmpty()) {
+                    withContext(Dispatchers.IO) {
+                        repository.getPagedPlants()
+                    }
+                } else {
+                    repository.getSearchedPagedPlants(it)
                 }
             }
-            .catch { it.printStackTrace() }
             .cachedIn(viewModelScope)
     }
 

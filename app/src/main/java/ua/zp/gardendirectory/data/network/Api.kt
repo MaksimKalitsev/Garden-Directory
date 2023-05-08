@@ -14,12 +14,11 @@ interface Api {
     suspend fun getPlants(
         @Query("page") pageIndex: Int,
         @Query("token") token: String = TOKEN,
-//        @Query("q") searchBy: String
     ): PlantsResponse
 
-//    @GET("/api/v1/plants/search")
-//    suspend fun searchPlant(
-//        @Query("q") search: String,
-//        @Query("token") token: String = TOKEN
-//    ): PlantsResponse
+    @GET("/api/v1/plants/search")
+    suspend fun searchPlant(
+        @Query("q") search: String,
+        @Query("token") token: String = TOKEN
+    ): PlantsResponse
 }

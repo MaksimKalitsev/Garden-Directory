@@ -23,6 +23,7 @@ import ua.zp.gardendirectory.databinding.FragmentMenuBinding
 import ua.zp.gardendirectory.databinding.FragmentPlantsListBinding
 import ua.zp.gardendirectory.ui.PlantAdapter
 import ua.zp.gardendirectory.ui.details_screen.PlantsListState
+import ua.zp.gardendirectory.ui.view_custom.SearchView
 
 enum class RequestState{
     LOADING, SUCCESS, ERROR;
@@ -34,6 +35,12 @@ class PlantsListFragment : Fragment() {
     private val viewModel by viewModels<PlantsListViewModel> ()
 
     private lateinit var adapter: PlantAdapter
+
+    private val searchCallback = object : SearchView.Callback {
+        override fun onQueryChanged(query: String) {
+            viewModel.setSearchBy(query)
+        }
+    }
 
     private val diffUtilItemCallback = object : DiffUtil.ItemCallback<PlantData>() {
         override fun areItemsTheSame(oldItem: PlantData, newItem: PlantData): Boolean {
@@ -66,6 +73,7 @@ class PlantsListFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
+        binding.searchView.setCallback(searchCallback)
 
         setupSwipeToRefresh()
 

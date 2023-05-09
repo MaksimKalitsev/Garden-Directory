@@ -4,9 +4,9 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class PlantData(
+data class MovieData(
     val id: Int,
-    val name: String?,
+    val title: String?,
     val photo: String?,
     val description: String?
 ): Parcelable

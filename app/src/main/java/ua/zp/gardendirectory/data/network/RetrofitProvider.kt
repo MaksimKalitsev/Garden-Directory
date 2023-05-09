@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object RetrofitProvider {
-    private const val BASE_URL = "https://trefle.io/"
+    private const val BASE_URL = "https://api.themoviedb.org/"
 
     private val gson: Gson = GsonBuilder().create()
     private val okHttpClient = createOkHttpClient()
@@ -34,5 +34,4 @@ object RetrofitProvider {
         return HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
     }
-
 }

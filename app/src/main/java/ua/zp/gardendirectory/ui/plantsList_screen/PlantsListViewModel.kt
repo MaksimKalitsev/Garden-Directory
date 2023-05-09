@@ -8,18 +8,16 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import ua.zp.gardendirectory.data.models.PlantData
+import ua.zp.gardendirectory.data.models.MovieData
 import ua.zp.gardendirectory.data.network.RetrofitProvider
-import ua.zp.gardendirectory.data.network.responses.PlantListResponse
-import ua.zp.gardendirectory.repository.PlantsRepository
-import ua.zp.gardendirectory.ui.details_screen.PlantsListState
+import ua.zp.gardendirectory.repository.MoviesRepository
 
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 class PlantsListViewModel : ViewModel() {
 
     //    val liveData = MutableLiveData(PlantsListState(RequestState.LOADING))
-    private var repository = PlantsRepository(RetrofitProvider.api)
-    val plantsFlow: Flow<PagingData<PlantData>>
+    private var repository = MoviesRepository(RetrofitProvider.api)
+    val plantsFlow: Flow<PagingData<MovieData>>
     private val searchBy = MutableLiveData("")
 
 
@@ -38,10 +36,10 @@ class PlantsListViewModel : ViewModel() {
             .flatMapLatest {
                 if (it.isNullOrEmpty()) {
                     withContext(Dispatchers.IO) {
-                        repository.getPagedPlants()
+                        repository.getPagedMovies()
                     }
                 } else {
-                    repository.getSearchedPagedPlants(it)
+                    repository.getSearchedPagedMovies(it)
                 }
             }
             .cachedIn(viewModelScope)

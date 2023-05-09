@@ -1,9 +1,9 @@
 package ua.zp.gardendirectory.ui
 
 import androidx.recyclerview.widget.DiffUtil
-import ua.zp.gardendirectory.data.models.PlantData
+import ua.zp.gardendirectory.data.models.MovieData
 
-class DiffCallback(private val oldList: List<PlantData>, private val newList: List<PlantData>) :
+class DiffCallback(private val oldList: List<MovieData>, private val newList: List<MovieData>) :
     DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size

@@ -6,13 +6,13 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import ua.zp.gardendirectory.data.models.PlantData
+import ua.zp.gardendirectory.data.models.MovieData
 import ua.zp.gardendirectory.databinding.ItemRecyclerviewBinding
 
 class PlantAdapter(
-    diffCallback: DiffUtil.ItemCallback<PlantData>,
+    diffCallback: DiffUtil.ItemCallback<MovieData>,
     private val navCallback: PlantHolder.NavCallback
-) : PagingDataAdapter<PlantData, PlantAdapter.PlantHolder>(diffCallback) {
+) : PagingDataAdapter<MovieData, PlantAdapter.PlantHolder>(diffCallback) {
 
 
     class PlantHolder(private val binding: ItemRecyclerviewBinding) :
@@ -21,12 +21,12 @@ class PlantAdapter(
         val rvItem = binding.itemRecyclerView
 
         interface NavCallback {
-            fun onItemRecyclerViewClicked(item: PlantData)
+            fun onItemRecyclerViewClicked(item: MovieData)
         }
 
-        fun bind(data: PlantData) = with(binding) {
+        fun bind(data: MovieData) = with(binding) {
             ivPhoto.load(data.photo)
-            tvName.text = data.name
+            tvName.text = data.title
             tvDescription.text = data.description
         }
 

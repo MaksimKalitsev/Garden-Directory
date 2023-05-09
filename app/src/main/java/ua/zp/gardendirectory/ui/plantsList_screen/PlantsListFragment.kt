@@ -15,8 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ua.zp.gardendirectory.R
-import ua.zp.gardendirectory.data.models.PlantData
-import ua.zp.gardendirectory.databinding.FragmentMenuBinding
+import ua.zp.gardendirectory.data.models.MovieData
 import ua.zp.gardendirectory.databinding.FragmentPlantsListBinding
 import ua.zp.gardendirectory.ui.PlantAdapter
 import ua.zp.gardendirectory.ui.view_custom.SearchView
@@ -39,19 +38,19 @@ class PlantsListFragment : Fragment() {
         }
     }
     private val navCallback = object : PlantAdapter.PlantHolder.NavCallback{
-        override fun onItemRecyclerViewClicked(item: PlantData) {
+        override fun onItemRecyclerViewClicked(item: MovieData) {
             val direction =
                 PlantsListFragmentDirections.actionPlantsListFragmentToDetailsFragment(plantData = item)
             findNavController().navigate(direction)
         }
     }
 
-    private val diffUtilItemCallback = object : DiffUtil.ItemCallback<PlantData>() {
-        override fun areItemsTheSame(oldItem: PlantData, newItem: PlantData): Boolean {
+    private val diffUtilItemCallback = object : DiffUtil.ItemCallback<MovieData>() {
+        override fun areItemsTheSame(oldItem: MovieData, newItem: MovieData): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: PlantData, newItem: PlantData): Boolean {
+        override fun areContentsTheSame(oldItem: MovieData, newItem: MovieData): Boolean {
             return oldItem == newItem
         }
 

@@ -4,39 +4,39 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import ua.zp.gardendirectory.data.models.PlantData
+import ua.zp.gardendirectory.data.models.MovieData
 import ua.zp.gardendirectory.data.network.Api
 
 
 const val NETWORK_PAGE_SIZE = 20
 
-interface IPlantsRepository {
-    suspend fun getPagedPlants(): Flow<PagingData<PlantData>>
-    suspend fun getSearchedPagedPlants(query: String): Flow<PagingData<PlantData>>
+interface IMoviesRepository {
+    suspend fun getPagedMovies(): Flow<PagingData<MovieData>>
+    suspend fun getSearchedPagedMovies(query: String): Flow<PagingData<MovieData>>
 
 }
 
-class PlantsRepository(private val api: Api) : IPlantsRepository {
-    override suspend fun getPagedPlants(): Flow<PagingData<PlantData>> {
+class MoviesRepository(private val api: Api) : IMoviesRepository {
+    override suspend fun getPagedMovies(): Flow<PagingData<MovieData>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                PlantsPagingSource(apiPlant = api)
+                MoviesPagingSource(apiMovie = api)
             }
         ).flow
     }
 
-    override suspend fun getSearchedPagedPlants(query: String): Flow<PagingData<PlantData>> {
+    override suspend fun getSearchedPagedMovies(query: String): Flow<PagingData<MovieData>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                PlantsPagingSource(apiPlant = api, query)
+                MoviesPagingSource(apiMovie = api, query)
             }
         ).flow
     }

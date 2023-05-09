@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -22,23 +19,30 @@ import ua.zp.gardendirectory.data.models.PlantData
 import ua.zp.gardendirectory.databinding.FragmentMenuBinding
 import ua.zp.gardendirectory.databinding.FragmentPlantsListBinding
 import ua.zp.gardendirectory.ui.PlantAdapter
-import ua.zp.gardendirectory.ui.details_screen.PlantsListState
 import ua.zp.gardendirectory.ui.view_custom.SearchView
 
-enum class RequestState{
+enum class RequestState {
     LOADING, SUCCESS, ERROR;
 }
+
 class PlantsListFragment : Fragment() {
     private var _binding: FragmentPlantsListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<PlantsListViewModel> ()
+    private val viewModel by viewModels<PlantsListViewModel>()
 
     private lateinit var adapter: PlantAdapter
 
     private val searchCallback = object : SearchView.Callback {
         override fun onQueryChanged(query: String) {
             viewModel.setSearchBy(query)
+        }
+    }
+    private val navCallback = object : PlantAdapter.PlantHolder.NavCallback{
+        override fun onItemRecyclerViewClicked(item: PlantData) {
+            val direction =
+                PlantsListFragmentDirections.actionPlantsListFragmentToDetailsFragment(plantData = item)
+            findNavController().navigate(direction)
         }
     }
 
@@ -69,7 +73,7 @@ class PlantsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = PlantAdapter(diffUtilItemCallback)
+        adapter = PlantAdapter(diffUtilItemCallback, navCallback)
         val layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
@@ -90,14 +94,7 @@ class PlantsListFragment : Fragment() {
         }
     }
 
-//    private fun setupSearchInput() {
-//        binding.searchEditText.addTextChangedListener {
-//            viewModel.setSearchBy(it.toString())
-//        }
-//    }
-//
-
-//    private val stateObserver = Observer<PlantsListState>{
+    //    private val stateObserver = Observer<PlantsListState>{
 //        when(it.requestState){
 //            RequestState.LOADING->{
 //                binding.progressBar.visibility = View.VISIBLE
@@ -114,7 +111,11 @@ class PlantsListFragment : Fragment() {
 //    }
     private fun showSnackbar() {
         val mySnackbar =
-            Snackbar.make(binding.plantListLayout, R.string.error_snackbar, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(
+                binding.plantListLayout,
+                R.string.error_snackbar,
+                Snackbar.LENGTH_INDEFINITE
+            )
         mySnackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.purple_200))
         mySnackbar.show()
     }

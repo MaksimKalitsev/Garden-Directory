@@ -27,5 +27,9 @@
         android:id="@+id/detailsFragment"
         android:name="ua.zp.gardendirectory.ui.details_screen.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="plantData"
+            app:argType="ua.zp.gardendirectory.data.models.PlantData" />
+    </fragment>
 </navigation>

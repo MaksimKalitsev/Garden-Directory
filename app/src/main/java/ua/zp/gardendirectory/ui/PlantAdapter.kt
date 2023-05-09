@@ -9,19 +9,22 @@ import coil.load
 import ua.zp.gardendirectory.data.models.PlantData
 import ua.zp.gardendirectory.databinding.ItemRecyclerviewBinding
 
-class PlantAdapter(diffCallback: DiffUtil.ItemCallback<PlantData>)
-    : PagingDataAdapter<PlantData, PlantAdapter.PlantHolder>(diffCallback) {
+class PlantAdapter(
+    diffCallback: DiffUtil.ItemCallback<PlantData>,
+    private val navCallback: PlantHolder.NavCallback
+) : PagingDataAdapter<PlantData, PlantAdapter.PlantHolder>(diffCallback) {
 
-//    var items: List<PlantData> = emptyList()
-//    set(newValue) {
-//        val diffCallback = DiffCallback(field, newValue)
-//        val diffResult = DiffUtil.calculateDiff(diffCallback)
-//        field = newValue
-//        diffResult.dispatchUpdatesTo(this)
-//    }
 
-    class PlantHolder(private val binding:ItemRecyclerviewBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(data:PlantData) = with(binding){
+    class PlantHolder(private val binding: ItemRecyclerviewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        val rvItem = binding.itemRecyclerView
+
+        interface NavCallback {
+            fun onItemRecyclerViewClicked(item: PlantData)
+        }
+
+        fun bind(data: PlantData) = with(binding) {
             ivPhoto.load(data.photo)
             tvName.text = data.name
             tvDescription.text = data.description
@@ -35,13 +38,13 @@ class PlantAdapter(diffCallback: DiffUtil.ItemCallback<PlantData>)
         return PlantHolder(binding)
     }
 
-//    override fun getItemCount(): Int {
-//        return items.size
-//    }
-
     override fun onBindViewHolder(holder: PlantHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it)
+        getItem(position)?.let { plant ->
+            holder.bind(plant)
+            holder.rvItem.setOnClickListener {
+                navCallback.onItemRecyclerViewClicked(plant)
+            }
         }
+
     }
 }

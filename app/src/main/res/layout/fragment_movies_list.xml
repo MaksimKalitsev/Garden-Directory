@@ -5,31 +5,18 @@
     android:id="@+id/plantList_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/menu_item"
+    android:background="@color/black"
     android:padding="8dp"
-    tools:context=".ui.plantsList_screen.PlantsListFragment">
-
-    <TextView
-        android:id="@+id/title_vegetables"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center|top"
-        android:text="@string/vegetables"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.moviesList_screen.MoviesListFragment">
 
     <ua.zp.gardendirectory.ui.view_custom.SearchView
         android:id="@+id/search_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_vegetables"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -51,8 +38,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_view"
-            tools:itemCount="5"
-            tools:listitem="@layout/item_recyclerview" />
+            tools:itemCount="6"
+            tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_recyclerview"
+            tools:spanCount="2" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

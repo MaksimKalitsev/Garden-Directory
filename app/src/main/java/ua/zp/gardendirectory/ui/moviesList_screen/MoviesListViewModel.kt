@@ -1,4 +1,4 @@
-package ua.zp.gardendirectory.ui.plantsList_screen
+package ua.zp.gardendirectory.ui.moviesList_screen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,35 +8,38 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import ua.zp.gardendirectory.MovieType
 import ua.zp.gardendirectory.data.models.MovieData
 import ua.zp.gardendirectory.data.network.RetrofitProvider
 import ua.zp.gardendirectory.repository.MoviesRepository
 
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-class PlantsListViewModel : ViewModel() {
+class MoviesListViewModel : ViewModel() {
 
-    //    val liveData = MutableLiveData(PlantsListState(RequestState.LOADING))
     private var repository = MoviesRepository(RetrofitProvider.api)
-    val plantsFlow: Flow<PagingData<MovieData>>
+    lateinit var moviesFlow: Flow<PagingData<MovieData>>
     private val searchBy = MutableLiveData("")
 
+    private lateinit var typeMovie: MovieType
 
     var isInitialized = false
         private set
 
-    fun init() {
+    fun init(type: MovieType) {
         if (isInitialized.not()) {
+            typeMovie = type
+            initFlow()
             isInitialized = true
         }
     }
 
-    init {
-        plantsFlow = searchBy.asFlow()
+    private fun initFlow() {
+        moviesFlow = searchBy.asFlow()
             .debounce(500)
             .flatMapLatest {
                 if (it.isNullOrEmpty()) {
                     withContext(Dispatchers.IO) {
-                        repository.getPagedMovies()
+                        repository.getPagedMovies(typeMovie.endpoint)
                     }
                 } else {
                     repository.getSearchedPagedMovies(it)
@@ -54,24 +57,4 @@ class PlantsListViewModel : ViewModel() {
         this.searchBy.postValue(this.searchBy.value)
 
     }
-
-//    private val currentState: PlantsListState
-//        get() = liveData.value!!
-
-//    fun getPlants() {
-//        viewModelScope.launch {
-//            liveData.value = currentState.copy(requestState = RequestState.LOADING)
-//            delay(1000)
-//            val result = withContext(Dispatchers.IO) {
-//                repository.getPlants()
-//            }
-//            result.onSuccess {
-//                liveData.value = currentState.copy(data = it, requestState = RequestState.SUCCESS)
-//            }.onFailure {
-//                liveData.value = currentState.copy(requestState = RequestState.ERROR)
-//            }
-//        }
-//    }
-
-
 }

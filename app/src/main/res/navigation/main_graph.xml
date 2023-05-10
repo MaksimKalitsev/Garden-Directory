@@ -11,17 +11,20 @@
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
-            android:id="@+id/action_menuFragment_to_plantsListFragment"
-            app:destination="@id/plantsListFragment" />
+            android:id="@+id/action_menuFragment_to_moviesListFragment"
+            app:destination="@id/moviesListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/plantsListFragment"
-        android:name="ua.zp.gardendirectory.ui.plantsList_screen.PlantsListFragment"
-        android:label="fragment_plants_list"
-        tools:layout="@layout/fragment_plants_list" >
+        android:id="@+id/moviesListFragment"
+        android:name="ua.zp.gardendirectory.ui.moviesList_screen.MoviesListFragment"
+        android:label="fragment_movies_list"
+        tools:layout="@layout/fragment_movies_list" >
         <action
-            android:id="@+id/action_plantsListFragment_to_detailsFragment"
+            android:id="@+id/action_moviesListFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <argument
+            android:name="movie_type"
+            app:argType="ua.zp.gardendirectory.MovieType" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -29,7 +32,7 @@
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <argument
-            android:name="plantData"
-            app:argType="ua.zp.gardendirectory.data.models.PlantData" />
+            android:name="movieData"
+            app:argType="ua.zp.gardendirectory.data.models.MovieData" />
     </fragment>
 </navigation>

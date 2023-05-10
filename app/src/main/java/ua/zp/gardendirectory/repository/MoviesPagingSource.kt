@@ -11,7 +11,8 @@ private const val STARTING_PAGE_INDEX = 1
 
 class MoviesPagingSource(
     private val apiMovie: Api,
-    private val query: String = ""
+    private val query: String = "",
+    private val endpoint: String = ""
 ) : PagingSource<Int, MovieData>() {
 
     override fun getRefreshKey(state: PagingState<Int, MovieData>): Int? {
@@ -27,6 +28,7 @@ class MoviesPagingSource(
         return try {
             val response = if (query.isEmpty()) {
                 apiMovie.getTopRatedMovies(
+                    type = endpoint,
                     pageIndex = pageIndex
                 )
             } else {

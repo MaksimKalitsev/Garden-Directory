@@ -11,13 +11,13 @@ import ua.zp.gardendirectory.data.network.Api
 const val NETWORK_PAGE_SIZE = 20
 
 interface IMoviesRepository {
-    suspend fun getPagedMovies(): Flow<PagingData<MovieData>>
+    suspend fun getPagedMovies(endpoint: String): Flow<PagingData<MovieData>>
     suspend fun getSearchedPagedMovies(query: String): Flow<PagingData<MovieData>>
 
 }
 
 class MoviesRepository(private val api: Api) : IMoviesRepository {
-    override suspend fun getPagedMovies(): Flow<PagingData<MovieData>> {
+    override suspend fun getPagedMovies(endpoint: String): Flow<PagingData<MovieData>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,

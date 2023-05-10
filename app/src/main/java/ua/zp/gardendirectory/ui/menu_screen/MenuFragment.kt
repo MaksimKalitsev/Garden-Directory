@@ -16,6 +16,8 @@ class MenuFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModels<MenuViewModel>()
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (viewModel.isInitialized.not())
@@ -32,16 +34,16 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.menuBerries.setOnClickListener {
-            findNavController().navigate(R.id.action_menuFragment_to_plantsListFragment)
+            findNavController().navigate(R.id.action_menuFragment_to_moviesListFragment)
         }
         binding.menuVegetables.setOnClickListener {
-            findNavController().navigate(R.id.action_menuFragment_to_plantsListFragment)
+            findNavController().navigate(R.id.action_menuFragment_to_moviesListFragment)
         }
         binding.menuFruits.setOnClickListener {
-            findNavController().navigate(R.id.action_menuFragment_to_plantsListFragment)
+            findNavController().navigate(R.id.action_menuFragment_to_moviesListFragment)
         }
         binding.menuPlantsProtection.setOnClickListener {
-            findNavController().navigate(R.id.action_menuFragment_to_plantsListFragment)
+            findNavController().navigate(R.id.action_menuFragment_to_moviesListFragment)
         }
 
 

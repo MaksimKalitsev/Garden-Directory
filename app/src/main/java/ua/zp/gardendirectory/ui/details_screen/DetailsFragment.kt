@@ -1,6 +1,5 @@
 package ua.zp.gardendirectory.ui.details_screen
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
-import ua.zp.gardendirectory.R
 import ua.zp.gardendirectory.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment() {
@@ -36,8 +34,8 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentDetailsBinding.bind(view)
 
-        val item = args.plantData
-        binding.ivDetailsPhoto.load(item.photo)
+        val item = args.movieData
+        binding.ivDetailsPhoto.load(item.originalSize)
         binding.tvDetailsDescription.text = item.description
     }
 

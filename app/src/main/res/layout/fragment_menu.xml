@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/menu_background"
+
     tools:context=".ui.menu_screen.MenuFragment">
 
 
@@ -33,7 +33,7 @@
             android:id="@+id/iv_vegetables"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:background="@drawable/vegetable"
+
             android:scaleType="centerCrop" />
 
         <TextView
@@ -60,7 +60,7 @@
             android:id="@+id/iv_fruits"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:background="@drawable/fruit"
+
             android:scaleType="centerCrop" />
 
         <TextView
@@ -88,7 +88,7 @@
             android:id="@+id/iv_berries"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:background="@drawable/berries"
+
             android:scaleType="centerCrop" />
 
         <TextView
@@ -116,7 +116,7 @@
             android:id="@+id/iv_plantProtection"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:background="@drawable/plant_protection"
+
             android:scaleType="centerCrop" />
 
         <TextView

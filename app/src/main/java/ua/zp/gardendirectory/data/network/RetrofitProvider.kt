@@ -7,10 +7,11 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ua.zp.gardendirectory.Confiq.BASE_URL
 
 
 object RetrofitProvider {
-    private const val BASE_URL = "https://api.themoviedb.org/"
+    //
 
     private val gson: Gson = GsonBuilder().create()
     private val okHttpClient = createOkHttpClient()

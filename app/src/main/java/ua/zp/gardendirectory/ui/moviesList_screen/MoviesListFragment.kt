@@ -1,4 +1,4 @@
-package ua.zp.gardendirectory.ui.plantsList_screen
+package ua.zp.gardendirectory.ui.moviesList_screen
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,38 +9,41 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ua.zp.gardendirectory.MovieType
 import ua.zp.gardendirectory.R
 import ua.zp.gardendirectory.data.models.MovieData
-import ua.zp.gardendirectory.databinding.FragmentPlantsListBinding
-import ua.zp.gardendirectory.ui.PlantAdapter
+import ua.zp.gardendirectory.databinding.FragmentMoviesListBinding
+import ua.zp.gardendirectory.ui.MovieAdapter
+import ua.zp.gardendirectory.ui.details_screen.DetailsFragmentArgs
 import ua.zp.gardendirectory.ui.view_custom.SearchView
 
-enum class RequestState {
-    LOADING, SUCCESS, ERROR;
-}
 
-class PlantsListFragment : Fragment() {
-    private var _binding: FragmentPlantsListBinding? = null
+class MoviesListFragment : Fragment() {
+    private var _binding: FragmentMoviesListBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<PlantsListViewModel>()
+    private val viewModel by viewModels<MoviesListViewModel>()
 
-    private lateinit var adapter: PlantAdapter
+    private lateinit var adapter: MovieAdapter
+
+    private val args: MoviesListFragmentArgs by navArgs()
 
     private val searchCallback = object : SearchView.Callback {
         override fun onQueryChanged(query: String) {
             viewModel.setSearchBy(query)
         }
     }
-    private val navCallback = object : PlantAdapter.PlantHolder.NavCallback{
+    private val navCallback = object : MovieAdapter.MovieHolder.NavCallback{
         override fun onItemRecyclerViewClicked(item: MovieData) {
             val direction =
-                PlantsListFragmentDirections.actionPlantsListFragmentToDetailsFragment(plantData = item)
+                MoviesListFragmentDirections.actionMoviesListFragmentToDetailsFragment(movieData = item)
             findNavController().navigate(direction)
         }
     }
@@ -59,21 +62,21 @@ class PlantsListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (viewModel.isInitialized.not())
-            viewModel.init()
+            viewModel.init(MovieType.TOP_RATED)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPlantsListBinding.inflate(inflater, container, false)
+        _binding = FragmentMoviesListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = PlantAdapter(diffUtilItemCallback, navCallback)
-        val layoutManager = LinearLayoutManager(context)
+        adapter = MovieAdapter(diffUtilItemCallback, navCallback)
+        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
         binding.searchView.setCallback(searchCallback)
@@ -81,7 +84,7 @@ class PlantsListFragment : Fragment() {
         setupSwipeToRefresh()
 
         lifecycleScope.launch {
-            viewModel.plantsFlow.collectLatest {
+            viewModel.moviesFlow.collectLatest {
                 adapter.submitData(it)
             }
         }
@@ -91,31 +94,5 @@ class PlantsListFragment : Fragment() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.refresh()
         }
-    }
-
-    //    private val stateObserver = Observer<PlantsListState>{
-//        when(it.requestState){
-//            RequestState.LOADING->{
-//                binding.progressBar.visibility = View.VISIBLE
-//            }
-//            RequestState.SUCCESS->{
-//                binding.progressBar.visibility = View.GONE
-//                adapter.submitData(lifecycle, plantsFlow)
-//            }
-//            RequestState.ERROR->{
-//                binding.progressBar.visibility = View.GONE
-//                showSnackbar()
-//            }
-//        }
-//    }
-    private fun showSnackbar() {
-        val mySnackbar =
-            Snackbar.make(
-                binding.plantListLayout,
-                R.string.error_snackbar,
-                Snackbar.LENGTH_INDEFINITE
-            )
-        mySnackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.purple_200))
-        mySnackbar.show()
     }
 }

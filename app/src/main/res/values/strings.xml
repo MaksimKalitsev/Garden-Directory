@@ -10,4 +10,9 @@
     <string name="search">Пошук</string>
     <string name="namePlant">Name</string>
     <string name="error_snackbar">Something wrong</string>
+
+    <string name="top_rated">Top rated</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="popular">Popular</string>
+    <string name="now_playing">Now playing</string>
 </resources>

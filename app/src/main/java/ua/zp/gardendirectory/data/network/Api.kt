@@ -2,6 +2,7 @@ package ua.zp.gardendirectory.data.network
 
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 import ua.zp.gardendirectory.data.network.responses.MovieResult
 
@@ -11,15 +12,17 @@ interface Api {
         private const val TOKEN = "0a98bb47335e64f1cc839f4708568258"
     }
 
-    @GET("3/movie/top_rated")
+//    @GET("3/movie/top_rated")
+    @GET("3/movie/{type}")
     suspend fun getTopRatedMovies(
-        @Header("api_key") api_key: String = TOKEN,
+        @Path("type") type: String,
+        @Query("api_key") api_key: String = TOKEN,
         @Query("page") pageIndex: Int
     ): MovieResult
 
     @GET("3/search/movie")
     suspend fun searchMovie(
-        @Header("api_key") api_key: String = TOKEN,
+        @Query("api_key") api_key: String = TOKEN,
         @Query("query") search: String,
         @Query("page") pageIndex: Int
     ): MovieResult

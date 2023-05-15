@@ -12,7 +12,7 @@ private const val STARTING_PAGE_INDEX = 1
 class MoviesPagingSource(
     private val apiMovie: Api,
     private val query: String = "",
-    private val endpoint: String = ""
+    private val endpoint: String
 ) : PagingSource<Int, MovieData>() {
 
     override fun getRefreshKey(state: PagingState<Int, MovieData>): Int? {
@@ -39,22 +39,15 @@ class MoviesPagingSource(
             }
             val movies = response.results.map { it.toMovieData() }
             val nextKey =
-                if (movies.isEmpty() || movies.size % 20 != 0) {
-                    null
-                } else {
-                    pageIndex + 1
-                }
+                if (movies.isEmpty() || movies.size % 20 != 0) null
+                else pageIndex + 1
             LoadResult.Page(
                 data = movies,
                 prevKey = if (pageIndex == STARTING_PAGE_INDEX) null else pageIndex,
                 nextKey = nextKey
             )
-        } catch (exception: IOException) {
-            return LoadResult.Error(exception)
-        } catch (exception: HttpException) {
-            return LoadResult.Error(exception)
-        } catch (exception: NullPointerException) {
-            return LoadResult.Error(exception)
+        } catch (ex: Exception) {
+            LoadResult.Error(ex)
         }
     }
 }

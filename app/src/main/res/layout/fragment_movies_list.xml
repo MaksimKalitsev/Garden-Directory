@@ -9,6 +9,17 @@
     android:padding="8dp"
     tools:context=".ui.moviesList_screen.MoviesListFragment">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
     <ua.zp.gardendirectory.ui.view_custom.SearchView
         android:id="@+id/search_view"
         android:layout_width="0dp"
@@ -34,7 +45,6 @@
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:paddingBottom="70dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_view"

@@ -12,11 +12,17 @@ const val NETWORK_PAGE_SIZE = 20
 
 interface IMoviesRepository {
     suspend fun getPagedMovies(endpoint: String): Flow<PagingData<MovieData>>
-    suspend fun getSearchedPagedMovies(query: String): Flow<PagingData<MovieData>>
+    suspend fun getSearchedPagedMovies(endpoint: String, query: String): Flow<PagingData<MovieData>>
 
 }
 
 class MoviesRepository(private val api: Api) : IMoviesRepository {
+
+     private var dataSource: MoviesPagingSource? = null
+
+    fun invalidate() {
+        dataSource?.invalidate()
+    }
     override suspend fun getPagedMovies(endpoint: String): Flow<PagingData<MovieData>> {
         return Pager(
             config = PagingConfig(
@@ -24,19 +30,21 @@ class MoviesRepository(private val api: Api) : IMoviesRepository {
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                MoviesPagingSource(apiMovie = api)
+                MoviesPagingSource(apiMovie = api, "", endpoint)
+                    .also { dataSource = it }
             }
         ).flow
     }
 
-    override suspend fun getSearchedPagedMovies(query: String): Flow<PagingData<MovieData>> {
+    override suspend fun getSearchedPagedMovies(endpoint: String, query: String): Flow<PagingData<MovieData>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                MoviesPagingSource(apiMovie = api, query)
+                MoviesPagingSource(apiMovie = api, query, endpoint)
+                    .also { dataSource = it }
             }
         ).flow
     }

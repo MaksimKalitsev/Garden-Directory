@@ -2,10 +2,9 @@ package ua.zp.gardendirectory.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import retrofit2.HttpException
 import ua.zp.gardendirectory.data.models.MovieData
 import ua.zp.gardendirectory.data.network.Api
-import java.io.IOException
+import javax.inject.Inject
 
 private const val STARTING_PAGE_INDEX = 1
 

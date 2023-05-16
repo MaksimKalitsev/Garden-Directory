@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
+import dagger.hilt.android.AndroidEntryPoint
 import ua.zp.gardendirectory.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment() {

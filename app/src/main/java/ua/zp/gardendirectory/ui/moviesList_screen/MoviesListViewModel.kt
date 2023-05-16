@@ -6,6 +6,7 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -16,14 +17,13 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.withContext
 import ua.zp.gardendirectory.MovieType
 import ua.zp.gardendirectory.data.models.MovieData
-import ua.zp.gardendirectory.data.network.RetrofitProvider
-import ua.zp.gardendirectory.repository.MoviesRepository
+import ua.zp.gardendirectory.repository.IMoviesRepository
 import ua.zp.gardendirectory.utill.OneTimeEvent
+import javax.inject.Inject
 
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-class MoviesListViewModel : ViewModel() {
-
-    private var repository = MoviesRepository(RetrofitProvider.api)
+@HiltViewModel
+class MoviesListViewModel @Inject constructor(private val repository: IMoviesRepository) : ViewModel() {
 
     lateinit var moviesFlow: Flow<PagingData<MovieData>>
     private val searchBy: MutableLiveData<OneTimeEvent<String>> = MutableLiveData(OneTimeEvent(""))

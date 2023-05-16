@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ua.zp.gardendirectory.MovieType
@@ -20,7 +21,7 @@ import ua.zp.gardendirectory.databinding.FragmentMoviesListBinding
 import ua.zp.gardendirectory.ui.MovieAdapter
 import ua.zp.gardendirectory.ui.view_custom.SearchView
 
-
+@AndroidEntryPoint
 class MoviesListFragment : Fragment() {
     private var _binding: FragmentMoviesListBinding? = null
     private val binding get() = _binding!!

@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'ua.zp.gardendirectory'
+    namespace 'ua.zp.moviedbportfolioproject'
     compileSdk 33
 
     defaultConfig {
-        applicationId "ua.zp.gardendirectory"
+        applicationId "ua.zp.moviedbportfolioproject"
         minSdk 26
         targetSdk 33
         versionCode 1

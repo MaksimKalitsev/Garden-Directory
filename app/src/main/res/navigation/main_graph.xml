@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/moviesListFragment"
-        android:name="ua.zp.gardendirectory.ui.moviesList_screen.MoviesListFragment"
+        android:name="ua.zp.moviedbportfolioproject.ui.moviesList_screen.MoviesListFragment"
         android:label="fragment_movies_list"
         tools:layout="@layout/fragment_movies_list" >
         <action
@@ -16,11 +16,11 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="ua.zp.gardendirectory.ui.details_screen.DetailsFragment"
+        android:name="ua.zp.moviedbportfolioproject.ui.details_screen.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
         <argument
             android:name="movieData"
-            app:argType="ua.zp.gardendirectory.data.models.MovieData" />
+            app:argType="ua.zp.moviedbportfolioproject.data.models.MovieData" />
     </fragment>
 </navigation>

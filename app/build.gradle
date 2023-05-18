@@ -19,6 +19,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -52,6 +58,10 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$hiltViewModelVersion"
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 
     implementation 'io.coil-kt:coil:1.4.0'
 

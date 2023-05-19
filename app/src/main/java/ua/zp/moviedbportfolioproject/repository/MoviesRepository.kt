@@ -3,8 +3,11 @@ package ua.zp.moviedbportfolioproject.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import ua.zp.moviedbportfolioproject.data.db.MovieDbEntity
 import ua.zp.moviedbportfolioproject.data.db.MoviesDao
 import ua.zp.moviedbportfolioproject.data.models.MovieData
@@ -58,8 +61,10 @@ class MoviesRepository @Inject constructor(private val api: Api, private val mov
         ).flow
     }
 
-      fun addFavoriteMovie(movieDbEntity: MovieData) {
-        TODO("Not yet implemented")
+      fun addFavoriteMovie(movieData: MovieData) {
+          CoroutineScope(Dispatchers.IO).launch {
+              moviesDao.addFavoriteMovie(movieData.toDbEntity())
+          }
 
     }
 

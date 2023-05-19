@@ -3,6 +3,7 @@ package ua.zp.moviedbportfolioproject.data.models
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import ua.zp.moviedbportfolioproject.Confiq.BASE_URL_IMAGES
+import ua.zp.moviedbportfolioproject.data.db.MovieDbEntity
 
 @Parcelize
 data class MovieData(
@@ -19,4 +20,12 @@ data class MovieData(
         get() = photo?.let {
             "$BASE_URL_IMAGES/original/$photo"
         }
+    fun toDbEntity(): MovieDbEntity {
+        return MovieDbEntity(
+            id = this.id,
+            title = this.title.orEmpty(),
+            photo = this.photo.orEmpty(),
+            description = this.description.orEmpty()
+        )
+    }
 }

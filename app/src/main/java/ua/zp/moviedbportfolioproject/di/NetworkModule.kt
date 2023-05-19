@@ -19,10 +19,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
-//    private val gson: Gson = provideGson()
-//    private val okHttpClient = provideClient()
-//    private val retrofit = provideRetrofit(gson, okHttpClient)
-
     @Provides
     @Singleton
     fun provideApi(retrofit: Retrofit):Api{

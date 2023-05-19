@@ -4,6 +4,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import ua.zp.moviedbportfolioproject.data.db.MovieDbEntity
+import ua.zp.moviedbportfolioproject.data.db.MoviesDao
 import ua.zp.moviedbportfolioproject.data.models.MovieData
 import ua.zp.moviedbportfolioproject.data.network.Api
 import javax.inject.Inject
@@ -17,7 +20,8 @@ interface IMoviesRepository {
     fun invalidate()
 }
 
-class MoviesRepository @Inject constructor(private val api: Api) : IMoviesRepository {
+class MoviesRepository @Inject constructor(private val api: Api, private val moviesDao: MoviesDao) :
+    IMoviesRepository {
 
     private var dataSource: MoviesPagingSource? = null
 
@@ -52,5 +56,14 @@ class MoviesRepository @Inject constructor(private val api: Api) : IMoviesReposi
                     .also { dataSource = it }
             }
         ).flow
+    }
+
+      fun addFavoriteMovie(movieDbEntity: MovieData) {
+        TODO("Not yet implemented")
+
+    }
+
+     fun getFavoriteMovies(movieID: Int): Flow<MovieData> {
+         return moviesDao.getFavoriteMovies(movieID).map { it.toMovieData() }
     }
 }

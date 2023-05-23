@@ -29,7 +29,6 @@ class MoviesListFragment : Fragment() {
 
     private lateinit var adapter: MovieAdapter
 
- //   private val args: MoviesListFragmentArgs by navArgs()
 
     private val searchCallback = object : SearchView.Callback {
         override fun onQueryChanged(query: String) {
@@ -42,6 +41,10 @@ class MoviesListFragment : Fragment() {
                 MoviesListFragmentDirections.actionMoviesListFragmentToDetailsFragment(movieData = item)
             findNavController().navigate(direction)
         }
+
+        override fun onFavoriteClicked(movie: MovieData) {
+            viewModel.addFavoriteMovie(movie)
+        }
     }
 
     private val diffUtilItemCallback = object : DiffUtil.ItemCallback<MovieData>() {
@@ -52,7 +55,6 @@ class MoviesListFragment : Fragment() {
         override fun areContentsTheSame(oldItem: MovieData, newItem: MovieData): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,7 +86,7 @@ class MoviesListFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            adapter.loadStateFlow.collectLatest {loadStates ->
+            adapter.loadStateFlow.collectLatest { loadStates ->
                 binding.swipeRefreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
             }
         }
@@ -102,6 +104,7 @@ class MoviesListFragment : Fragment() {
             }
             true
         }
+
     }
 
     private fun setupSwipeToRefresh() {

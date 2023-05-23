@@ -7,6 +7,7 @@ import ua.zp.moviedbportfolioproject.data.db.MovieDbEntity
 
 @Parcelize
 data class MovieData(
+    var isFavorite: Boolean = false,
     val id: Int,
     val title: String?,
     val photo: String?,
@@ -25,7 +26,8 @@ data class MovieData(
             id = this.id,
             title = this.title.orEmpty(),
             photo = this.photo.orEmpty(),
-            description = this.description.orEmpty()
+            description = this.description.orEmpty(),
+            isFavorite = this.isFavorite
         )
     }
 }

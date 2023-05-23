@@ -11,4 +11,5 @@
     <color name="item_recyclerview">#EDE281</color>
     <color name="text_menu_item">#80C7F098</color>
     <color name="text_search">#80D1D3CF</color>
+    <color name="iv_favorite">#F3FD0523</color>
 </resources>

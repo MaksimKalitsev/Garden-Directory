@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
-//import ua.zp.gardendirectory.databinding.FragmentDetailsBinding
-//import ua.zp.gardendirectory.databinding.FragmentDetailsBinding
 import ua.zp.moviedbportfolioproject.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment() {

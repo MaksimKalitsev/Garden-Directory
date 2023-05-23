@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ua.zp.moviedbportfolioproject.MovieType
 import ua.zp.moviedbportfolioproject.data.models.MovieData
@@ -23,7 +24,9 @@ import javax.inject.Inject
 
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 @HiltViewModel
-class MoviesListViewModel @Inject constructor(private val repository: IMoviesRepository) : ViewModel() {
+class MoviesListViewModel @Inject constructor(
+    private val repository: IMoviesRepository
+) : ViewModel() {
 
     lateinit var moviesFlow: Flow<PagingData<MovieData>>
     private val searchBy: MutableLiveData<OneTimeEvent<String>> = MutableLiveData(OneTimeEvent(""))
@@ -65,7 +68,11 @@ class MoviesListViewModel @Inject constructor(private val repository: IMoviesRep
             .cachedIn(viewModelScope)
 
     private suspend fun requestByType(movieType: MovieType) = withContext(Dispatchers.IO) {
+        if (movieType==MovieType.FAVORITE){
+            repository.getFavoriteMovies()
+        }else
         repository.getPagedMovies(movieType.endpoint)
+
     }
 
     private suspend fun requestByQuery(query: String) = withContext(Dispatchers.IO) {
@@ -87,4 +94,12 @@ class MoviesListViewModel @Inject constructor(private val repository: IMoviesRep
     fun refresh() {
         repository.invalidate()
     }
+
+//work with db
+    fun addFavoriteMovie(movieData: MovieData) {
+        viewModelScope.launch {
+            repository.addFavoriteMovie(movieData)
+        }
+    }
+
 }

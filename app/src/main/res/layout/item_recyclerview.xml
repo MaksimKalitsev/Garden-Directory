@@ -36,7 +36,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars"
+                android:contentDescription="@null" />
 
             <TextView
                 android:id="@+id/tv_name"
@@ -70,11 +71,11 @@
                 android:id="@+id/iv_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/ic_favorite_border"/>
+                android:src="@drawable/ic_favorite_border"
+                android:contentDescription="@null" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

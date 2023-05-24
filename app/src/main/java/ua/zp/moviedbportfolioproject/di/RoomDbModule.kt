@@ -23,7 +23,6 @@ import javax.inject.Singleton
     @Singleton
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, "movies_db")
-            .fallbackToDestructiveMigration()
             .build()
     }
 }

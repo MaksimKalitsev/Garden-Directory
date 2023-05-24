@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-         />
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/tv_details_description"
@@ -25,5 +25,5 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_details_photo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="TextView" />
+        tools:text="Description" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,8 +58,8 @@ class MovieAdapter(
                 val isFavorite = movie.isFavorite
                 movie.isFavorite = !isFavorite
                 if (movie.isFavorite){
-                navCallback.addFavoriteMovie(movie)
-                }else {
+                    navCallback.addFavoriteMovie(movie)
+                } else {
                     navCallback.removeFavoriteMovie(movie)
                 }
                 val updatedColorRes = if (movie.isFavorite) R.color.iv_favorite else R.color.black

@@ -12,7 +12,7 @@ interface Api {
     }
 
     @GET("3/movie/{type}")
-    suspend fun getTopRatedMovies(
+    suspend fun getListMovies(
         @Path("type") type: String,
         @Query("api_key") api_key: String = TOKEN,
         @Query("page") pageIndex: Int

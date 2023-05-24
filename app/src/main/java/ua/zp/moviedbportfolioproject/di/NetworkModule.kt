@@ -21,21 +21,24 @@ import javax.inject.Singleton
 class NetworkModule {
     @Provides
     @Singleton
-    fun provideApi(retrofit: Retrofit):Api{
+    fun provideApi(retrofit: Retrofit): Api {
         return retrofit.create(Api::class.java)
     }
+
     @Provides
     @Singleton
-    fun provideGson():Gson{
+    fun provideGson(): Gson {
         return GsonBuilder().create()
     }
+
     @Provides
     @Singleton
-    fun provideClient():OkHttpClient{
+    fun provideClient(loggingInterceptor: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(createLoggingInterceptor())
+            .addInterceptor(loggingInterceptor)
             .build()
     }
+
     @Provides
     @Singleton
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
@@ -46,7 +49,9 @@ class NetworkModule {
             .build()
     }
 
-    private fun createLoggingInterceptor(): Interceptor {
+    @Provides
+    @Singleton
+    fun provideLoggingInterceptor(): Interceptor {
         return HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
     }

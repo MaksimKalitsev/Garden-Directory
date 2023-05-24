@@ -34,7 +34,7 @@ class MoviesRepository @Inject constructor(private val api: Api, private val mov
             val stateMap = mutableMapOf<Int, Boolean>()
             val movies = moviesDao.getMoviesByIds(ids)
             for (movie in movies) {
-                stateMap[movie.id] = movie.isFavorite
+                stateMap[movie.id] = true
             }
             return stateMap
         }
@@ -79,7 +79,6 @@ class MoviesRepository @Inject constructor(private val api: Api, private val mov
 
     override suspend fun addFavoriteMovie(movieData: MovieData) {
             moviesDao.addFavoriteMovie(movieData.toDbEntity())
-
     }
 
     override fun getFavoriteMovies(): Flow<PagingData<MovieData>> {

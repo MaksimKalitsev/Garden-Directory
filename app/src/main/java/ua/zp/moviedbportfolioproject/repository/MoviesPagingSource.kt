@@ -29,7 +29,7 @@ class MoviesPagingSource(
         val pageIndex = params.key ?: STARTING_PAGE_INDEX
         return try {
             val response = if (query.isEmpty()) {
-                apiMovie.getTopRatedMovies(
+                apiMovie.getListMovies(
                     type = endpoint,
                     pageIndex = pageIndex
                 )

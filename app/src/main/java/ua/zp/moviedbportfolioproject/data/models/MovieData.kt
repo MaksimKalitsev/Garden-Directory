@@ -26,8 +26,7 @@ data class MovieData(
             id = this.id,
             title = this.title.orEmpty(),
             photo = this.photo.orEmpty(),
-            description = this.description.orEmpty(),
-            isFavorite = this.isFavorite
+            description = this.description.orEmpty()
         )
     }
 }

@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import ua.zp.moviedbportfolioproject.databinding.ItemSearchBinding
 
@@ -26,13 +25,8 @@ class SearchView @JvmOverloads constructor(
     init {
         val inflater = LayoutInflater.from(context)
         binding = ItemSearchBinding.inflate(inflater, this, true)
-//        binding.edtSearchText.addTextChangedListener {
-//            it?.let { query ->
-//                callback?.onQueryChanged(query.toString())
-//            }
-//        }
         binding.edtSearchText.doAfterTextChanged {
-            checkEnabledEditText()
+            handleClearIconVisibility()
             it?.takeIf { binding.edtSearchText.hasFocus() }
                 ?.let { query ->
                     callback?.onQueryChanged(query.toString())
@@ -41,13 +35,13 @@ class SearchView @JvmOverloads constructor(
         binding.ivClearText.setOnClickListener {
             binding.edtSearchText.text.clear()
         }
-        checkEnabledEditText()
+        handleClearIconVisibility()
     }
 
     fun setCallback(callback: Callback) {
         this.callback = callback
     }
-    private fun checkEnabledEditText() = with(binding){
+    private fun handleClearIconVisibility() = with(binding){
         ivClearText.isVisible = edtSearchText.text.isNullOrEmpty().not()
     }
 }

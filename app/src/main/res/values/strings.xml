@@ -2,7 +2,7 @@
     <string name="app_name">Movie DB Portfolio Project</string>
     <string name="splash_text">Garden \n Directory</string>
     <string name="description">Description</string>
-    <string name="search">Пошук</string>
+    <string name="search">Search</string>
     <string name="nameMovie">Name</string>
     <string name="error_snackbar">Something wrong</string>
     <string name="top_rated">Top rated</string>

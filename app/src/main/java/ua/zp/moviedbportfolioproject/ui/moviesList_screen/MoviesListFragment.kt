@@ -42,8 +42,12 @@ class MoviesListFragment : Fragment() {
             findNavController().navigate(direction)
         }
 
-        override fun onFavoriteClicked(movie: MovieData) {
+        override fun addFavoriteMovie(movie: MovieData) {
             viewModel.addFavoriteMovie(movie)
+        }
+
+        override fun removeFavoriteMovie(movie: MovieData) {
+            viewModel.deleteFavoriteMovie(movie)
         }
     }
 
@@ -106,7 +110,6 @@ class MoviesListFragment : Fragment() {
         }
 
     }
-
     private fun setupSwipeToRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.refresh()

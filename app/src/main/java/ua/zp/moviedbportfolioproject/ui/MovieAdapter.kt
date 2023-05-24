@@ -3,8 +3,6 @@ package ua.zp.moviedbportfolioproject.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +24,8 @@ class MovieAdapter(
 
         interface NavCallback {
             fun onItemRecyclerViewClicked(item: MovieData)
-            fun onFavoriteClicked(movie: MovieData)
+            fun addFavoriteMovie(movie: MovieData)
+            fun removeFavoriteMovie(movie: MovieData)
         }
 
         fun bind(data: MovieData) = with(binding) {
@@ -58,7 +57,11 @@ class MovieAdapter(
             holder.ivFavorite.setOnClickListener {
                 val isFavorite = movie.isFavorite
                 movie.isFavorite = !isFavorite
-                navCallback.onFavoriteClicked(movie)
+                if (movie.isFavorite){
+                navCallback.addFavoriteMovie(movie)
+                }else {
+                    navCallback.removeFavoriteMovie(movie)
+                }
                 val updatedColorRes = if (movie.isFavorite) R.color.iv_favorite else R.color.black
                 holder.ivFavorite.setColorFilter(ContextCompat.getColor(context, updatedColorRes))
             }

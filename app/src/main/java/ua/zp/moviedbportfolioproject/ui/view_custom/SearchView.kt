@@ -26,13 +26,17 @@ class SearchView @JvmOverloads constructor(
     init {
         val inflater = LayoutInflater.from(context)
         binding = ItemSearchBinding.inflate(inflater, this, true)
-        binding.edtSearchText.addTextChangedListener {
-            it?.let { query ->
-                callback?.onQueryChanged(query.toString())
-            }
-        }
+//        binding.edtSearchText.addTextChangedListener {
+//            it?.let { query ->
+//                callback?.onQueryChanged(query.toString())
+//            }
+//        }
         binding.edtSearchText.doAfterTextChanged {
             checkEnabledEditText()
+            it?.takeIf { binding.edtSearchText.hasFocus() }
+                ?.let { query ->
+                    callback?.onQueryChanged(query.toString())
+                }
         }
         binding.ivClearText.setOnClickListener {
             binding.edtSearchText.text.clear()

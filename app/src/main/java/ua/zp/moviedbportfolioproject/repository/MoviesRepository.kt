@@ -3,12 +3,7 @@ package ua.zp.moviedbportfolioproject.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import ua.zp.moviedbportfolioproject.data.db.MovieDbEntity
 import ua.zp.moviedbportfolioproject.data.db.MoviesDao
 import ua.zp.moviedbportfolioproject.data.models.MovieData
 import ua.zp.moviedbportfolioproject.data.network.Api
@@ -22,8 +17,10 @@ interface IMoviesRepository {
     suspend fun getPagedMovies(endpoint: String): Flow<PagingData<MovieData>>
     suspend fun getSearchedPagedMovies(endpoint: String, query: String): Flow<PagingData<MovieData>>
     fun invalidate()
-    fun addFavoriteMovie(movieData: MovieData)
+    fun invalidateDb()
+    suspend fun addFavoriteMovie(movieData: MovieData)
     fun getFavoriteMovies(): Flow<PagingData<MovieData>>
+    suspend fun deleteFavoriteMovie(movieData: MovieData)
 }
 
 class MoviesRepository @Inject constructor(private val api: Api, private val moviesDao: MoviesDao) :
@@ -45,6 +42,10 @@ class MoviesRepository @Inject constructor(private val api: Api, private val mov
 
     override fun invalidate() {
         dataSource?.invalidate()
+    }
+
+    override fun invalidateDb() {
+        dataSourceDb?.invalidate()
     }
 
     override suspend fun getPagedMovies(endpoint: String): Flow<PagingData<MovieData>> {
@@ -76,10 +77,9 @@ class MoviesRepository @Inject constructor(private val api: Api, private val mov
         ).flow
     }
 
-    override fun addFavoriteMovie(movieData: MovieData) {
-        CoroutineScope(Dispatchers.IO).launch {
+    override suspend fun addFavoriteMovie(movieData: MovieData) {
             moviesDao.addFavoriteMovie(movieData.toDbEntity())
-        }
+
     }
 
     override fun getFavoriteMovies(): Flow<PagingData<MovieData>> {
@@ -93,6 +93,10 @@ class MoviesRepository @Inject constructor(private val api: Api, private val mov
                     .also { dataSourceDb = it }
             }
         ).flow
-//        return moviesDao.getFavoriteMovies().map { it.toMovieData() }
+    }
+
+    override suspend fun deleteFavoriteMovie(movieData: MovieData) {
+        val movieDbEntity = movieData.toDbEntity()
+        moviesDao.deleteFavoriteMovie(movieDbEntity)
     }
 }

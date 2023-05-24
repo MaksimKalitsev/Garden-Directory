@@ -31,17 +31,16 @@ class MoviesListViewModel @Inject constructor(
     lateinit var moviesFlow: Flow<PagingData<MovieData>>
     private val searchBy: MutableLiveData<OneTimeEvent<String>> = MutableLiveData(OneTimeEvent(""))
     private lateinit var tabChanged: MutableLiveData<OneTimeEvent<MovieType>>
-
     private lateinit var typeMovie: MovieType
-
-    var isInitialized = false
-        private set
+    private var isInitialized = false
 
     fun init(type: MovieType) {
         if (isInitialized.not()) {
             typeMovie = type
             setupFlows(type)
             isInitialized = true
+        } else {
+            tabChanged.value = OneTimeEvent(typeMovie)
         }
     }
 
@@ -57,7 +56,6 @@ class MoviesListViewModel @Inject constructor(
                 requestByType(it.getPayload()!!)
             }
             .cachedIn(viewModelScope)
-
 
     private fun getSearchFlow(): Flow<PagingData<MovieData>> =
         searchBy.asFlow()
@@ -79,7 +77,6 @@ class MoviesListViewModel @Inject constructor(
         repository.getSearchedPagedMovies(typeMovie.endpoint, query)
     }
 
-
     fun setSearchBy(value: String, isRefresh: Boolean = false) {
         if (this.searchBy.value?.getPayload() == value && isRefresh.not()) return
         this.searchBy.value = OneTimeEvent(value)
@@ -93,12 +90,18 @@ class MoviesListViewModel @Inject constructor(
 
     fun refresh() {
         repository.invalidate()
+        repository.invalidateDb()
     }
 
-//work with db
     fun addFavoriteMovie(movieData: MovieData) {
         viewModelScope.launch {
             repository.addFavoriteMovie(movieData)
+        }
+    }
+    fun deleteFavoriteMovie(movieData: MovieData){
+        viewModelScope.launch {
+            repository.deleteFavoriteMovie(movieData)
+            repository.invalidateDb()
         }
     }
 

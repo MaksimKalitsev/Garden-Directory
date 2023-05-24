@@ -1,16 +1,10 @@
 <resources>
     <string name="app_name">Movie DB Portfolio Project</string>
     <string name="splash_text">Garden \n Directory</string>
-    <string name="hello">Вітаємо!</string>
-    <string name="vegetables">Овочі</string>
-    <string name="fruits">Фрукти</string>
-    <string name="berries">Ягоди</string>
-    <string name="plant_protection">Захист рослин</string>
     <string name="description">Description</string>
     <string name="search">Пошук</string>
-    <string name="namePlant">Name</string>
+    <string name="nameMovie">Name</string>
     <string name="error_snackbar">Something wrong</string>
-
     <string name="top_rated">Top rated</string>
     <string name="upcoming">Upcoming</string>
     <string name="popular">Popular</string>
